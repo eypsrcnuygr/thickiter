@@ -1,0 +1,3 @@
+# THICKITER
+A microservice structured application that you can sell second-hand tickets
+In progress...
