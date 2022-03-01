@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Password } from "../helpers/password";
 
 // An interface that describes the properties of the User
 interface UserAttributes {
@@ -28,6 +29,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+});
+
+// If we use arrow function for callback this not equal the the User document, instead it is the class
+userSchema.pre("save", async function (done) {
+  if (this.isModified("password")) {
+    const hashed = await Password.toHash(this.get("password"));
+    this.set("password", hashed);
+  }
+  done();
 });
 
 // To make the Typescript and Mongoose work together

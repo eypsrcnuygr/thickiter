@@ -3,8 +3,8 @@ import { CustomError } from "./custom-error";
 
 export class RequestValidationError extends CustomError {
   statusCode = 400;
-  constructor(private errors: ValidationError[]) {
-    super("Invalid login parameters");
+  constructor(public errors: ValidationError[]) {
+    super("Invalid login parameters!!!!");
     Object.setPrototypeOf(this, RequestValidationError.prototype);
   }
 

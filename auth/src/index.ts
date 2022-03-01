@@ -18,7 +18,7 @@ app.use(signupRoute);
 
 app.all("*", async (req, res, next) => {
   // Before async it was like throw new NotFoundError();
-
+  // we are not throwing error because it is an async function so we are using next function abilities!
   next(new NotFoundError());
 });
 
