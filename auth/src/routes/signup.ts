@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import { RequestValidationError } from "../errors/request-validation-error";
 import { DatabaseConnectionError } from "../errors/database-connection-errors";
+import { User } from "../models/user";
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.post(
       .isLength({ min: 4, max: 20 })
       .withMessage("Password length must be between 4 and 20!"),
   ],
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -23,9 +24,15 @@ router.post(
     }
     const { email, password } = req.body;
 
-    console.log("User creation is underway...");
-    throw new DatabaseConnectionError();
-    res.send("Hi there");
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      console.log("Email in use");
+      return res.send({});
+    }
+
+    const user = User.build({ email, password });
+    await user.save();
   }
 );
 
