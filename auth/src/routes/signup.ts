@@ -2,8 +2,8 @@ import express, { NextFunction, Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import { BadRequestError } from "../errors/bad-request-error";
-import { RequestValidationError } from "../errors/request-validation-error";
 import { User } from "../models/user";
+import { validateRequest } from "../middlewares/validate-request";
 
 const router = express.Router();
 
@@ -16,6 +16,7 @@ router.post(
       .isLength({ min: 4, max: 20 })
       .withMessage("Password length must be between 4 and 20!"),
   ],
+  validateRequest,
   async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
 
@@ -23,11 +24,7 @@ router.post(
 
     const existingUser = await User.findOne({ email });
 
-    if (!errors.isEmpty()) {
-      //   return res.status(400).send(errors.array());
-      // throw new RequestValidationError(errors.array());
-      return next(new RequestValidationError(errors.array()));
-    } else if (existingUser) {
+    if (existingUser) {
       // throw new BadRequestError("Email is in use!");
       // we are not throwing because it is an async function so we are using next function abilities!
       return next(new BadRequestError("Email is in use!"));

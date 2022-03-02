@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema(
   },
   {
     toJSON: {
-      transform(doc: any, ret: any) {
+      transform(doc: UserDoc, ret: any) {
         ret.id = ret._id;
         delete ret._id;
         delete ret.password;
