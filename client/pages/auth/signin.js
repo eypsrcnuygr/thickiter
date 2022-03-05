@@ -7,7 +7,7 @@ const signUp = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const { doRequest, errors } = useRequest({
-    url: "/api/users/signup",
+    url: "/api/users/signin",
     method: "post",
     body: {
       email,
@@ -24,7 +24,7 @@ const signUp = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <h1>Sign Up</h1>
+      <h1>Sign In</h1>
       <div className="form-group">
         <label>Email Adress</label>
         <input
