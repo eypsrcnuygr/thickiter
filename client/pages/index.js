@@ -1,4 +1,4 @@
-import axios from "axios";
+import buildClient from "../api/build-client";
 
 const index = ({ currentUser }) => {
   console.log(currentUser);
@@ -7,22 +7,10 @@ const index = ({ currentUser }) => {
 };
 
 index.getInitialProps = async ({ req }) => {
-  let response = null;
+  const client = buildClient({ req });
+  const { data } = await client.get("/api/users/current_user");
 
-  if (typeof window === "undefined") {
-    response = await axios.get(
-      "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/current_user",
-      {
-        headers: req.headers,
-      }
-    );
-  } else {
-    response = await axios.get("/api/users/current_user");
-
-    return response.data;
-  }
-
-  return response.data;
+  return data;
 };
 
 export default index;
