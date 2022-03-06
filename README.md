@@ -18,4 +18,5 @@ It uses [Dockerized](https://www.docker.com/) images, and run on [Kubernetes](ht
     1. User creation
 - Tests for auth service
 - Tests for tickets service
+- An [npm package](https://www.npmjs.com/package/@esuthickiter/common) is pushed for common module that is a submodule of this repo.
 
