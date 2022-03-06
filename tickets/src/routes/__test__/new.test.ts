@@ -44,4 +44,13 @@ it("return error if an invalid price is given", async () => {
     .expect(400);
 });
 
-it("creates a ticket with valid inputs", async () => {});
+it("creates a ticket with valid inputs", async () => {
+  const response = await request(app)
+    .post("/api/tickets")
+    .set("Cookie", global.signin())
+    .send({
+      title: "Baseball",
+      price: 10,
+    })
+    .expect(201);
+});
