@@ -20,3 +20,7 @@ It uses [Dockerized](https://www.docker.com/) images, and run on [Kubernetes](ht
 - Tests for tickets service
 - An [npm package](https://www.npmjs.com/package/@esuthickiter/common) is pushed for common module that is a submodule of this repo.
 
+## Quick Note
+- To run this repo locally the best is add the thickiter.dev to your ```hosts``` file which points to 127.0.0.1 then run the ```skaffold dev``` command in the root. Then it'll pull down the images from docker hub, start Kubernetes cluster with the pulled containers inside the pods. I'm also assuming that you already have ```ingress-nginx``` locally which serves as a controller and organizes the routing to the related services. If you still have problems running it locally DM me via Twitter or mail, so we can look it up and solve the issue.
+- I'm planning to deploy it to the internet, build upon it a real application, which serves as a thicket selling environment, especially in Turkey. So hoping you'll see the finished product in the end.
+
