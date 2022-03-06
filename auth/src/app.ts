@@ -4,8 +4,7 @@ import { currentUserRouter } from "./routes/current-user";
 import { signinRoute } from "./routes/signin";
 import { signoutRoute } from "./routes/signout";
 import { signupRoute } from "./routes/signup";
-import { errorHandler } from "./middlewares/error-handlers";
-import { NotFoundError } from "./errors/not-found-error";
+import { errorHandler, NotFoundError } from "@esuthickiter/common";
 import cookieSession from "cookie-session";
 
 const app = express();
