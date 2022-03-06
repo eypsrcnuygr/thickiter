@@ -21,7 +21,7 @@ router.put(
   ],
   validateRequest,
   async (req: Request, res: Response, next: NextFunction) => {
-    const ticket = await Ticket.findById(req.params.id);
+    let ticket = await Ticket.findById(req.params.id);
 
     if (!ticket) {
       next(new NotFoundError());
