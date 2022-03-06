@@ -9,8 +9,9 @@ const startup = async () => {
   if (!process.env.MONGO_URI) {
     throw new Error("MONGO URI must be initialized!");
   }
+
   try {
-    console.log("Connected to MongoDB!!");
+    console.log("Connected to MongoDB Tickets!!");
     await mongoose.connect(process.env.MONGO_URI);
   } catch (err) {
     console.log(err);
