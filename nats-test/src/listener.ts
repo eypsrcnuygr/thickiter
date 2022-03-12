@@ -8,7 +8,15 @@ const stan = nats.connect("thickiter", randomBytes(4).toString("hex"), {
 stan.on("connect", () => {
   console.log("Listener connected to Nats");
 
-  const options = stan.subscriptionOptions().setManualAckMode(true);
+  stan.on("close", () => {
+    console.log("Nats connection closed!");
+    process.exit();
+  });
+  const options = stan
+    .subscriptionOptions()
+    .setManualAckMode(true)
+    .setDeliverAllAvailable()
+    .setDurableName("orders-service");
   const subscription = stan.subscribe(
     "ticket:created",
     "orders-service-queue-group",
@@ -26,3 +34,6 @@ stan.on("connect", () => {
     msg.ack();
   });
 });
+
+process.on("SIGINT", () => stan.close());
+process.on("SIGTERM", () => stan.close());
