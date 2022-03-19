@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import { OrderStatus } from "@esuthickiter/common";
 import { TicketDoc } from "./ticket";
 
+export { OrderStatus };
+
 interface OrderAttributes {
   userId: string;
   status: OrderStatus;
