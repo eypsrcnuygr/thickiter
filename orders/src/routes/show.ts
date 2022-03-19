@@ -3,7 +3,7 @@ import {
   NotFoundError,
   requireAuth,
 } from "@esuthickiter/common";
-import express, { NextFunction, Request, Response, Router } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { Order } from "../models/order";
 
 const router = express.Router();
