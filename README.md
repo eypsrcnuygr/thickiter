@@ -14,15 +14,21 @@ It uses [Dockerized](https://www.docker.com/) images, and run on [Kubernetes](ht
     2. You can see all tickets created
     3. You can update your own tickets
     4. Front-end yet not implemented!
+- Order service implemented <br />
+    1. You can create a order
+    2. You can see all orders created
+    3. You can delete your own order
+    4. Front-end yet not implemented!
 - [Mongo DB](https://www.mongodb.com/) connection is implemented
     1. User creation
 - Tests for auth service
 - Tests for tickets service
+- Tests for orders service
 - An [npm package](https://www.npmjs.com/package/@esuthickiter/common) is pushed for common module that is a submodule of this repo.
 
 ## Quick Note
 - To run this repo locally the best is add the thickiter.dev to your ```hosts``` file which points to 127.0.0.1 then run the ```skaffold dev``` command in the root. Then it'll pull down the images from docker hub, start Kubernetes cluster with the pulled containers inside the pods. I'm also assuming that you already have ```ingress-nginx``` locally which serves as a controller and organizes the routing to the related services. If you still have problems running it locally DM me via Twitter or mail, so we can look it up and solve the issue.
 - I'm planning to deploy it to the internet, build upon it a real application, which serves as a thicket selling environment, especially in Turkey. So hoping you'll see the finished product in the end.
 - One last note, the app will ask the secret to you. Tou specify your secret the command is ```kubectl create secret generic $name_of_the_secret --from-literal=$key_for_the_object=$the_value_for_the_object```. You can see the secret details under the env section of the deployment yaml files.
-- Nats streaming service is not running inside Kubernetes righ now. It'll be in near future. To get the server up and running you'll have to make a ```port-forward``` with this command ```kubectl port-forward $name_of_the_pods $port_access:$port_of_pod```. for pod name you need to run ```kubectl get pods```. access port is 4222, running port is 4222. You can see them in the ```nats-deply.yaml.```
+- Nats streaming service is not running inside Kubernetes righ now. It'll be in near future. To get the server up and running you'll have to make a ```port-forward``` with this command ```kubectl port-forward $name_of_the_pods $port_access:$port_of_pod```. for pod name you need to run ```kubectl get pods```. access port is 4222, running port is 4222. You can see them in the ```nats-depl.yaml.```
 
