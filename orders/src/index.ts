@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import { app } from "./app";
 import { natsWrapper } from "./nats-wrapper-singleton";
+import { TicketCreatedListener } from "./events/listeners/ticket-created-listener";
+import { TicketUpdatedListener } from "./events/listeners/ticket-updated.listener";
 
 const startup = async () => {
   if (!process.env.JWT_KEY) {
@@ -11,13 +13,13 @@ const startup = async () => {
     throw new Error("MONGO URI must be initialized!");
   }
   if (!process.env.NATS_CLIENT_ID) {
-    throw new Error("MONGO URI must be initialized!");
+    throw new Error("You must provide Client Id!");
   }
   if (!process.env.NATS_URL) {
-    throw new Error("MONGO URI must be initialized!");
+    throw new Error("You must provide Nats Url");
   }
   if (!process.env.NATS_CLUSTER_ID) {
-    throw new Error("MONGO URI must be initialized!");
+    throw new Error("You must provide Nats Cluster ID");
   }
 
   try {
@@ -32,6 +34,10 @@ const startup = async () => {
     });
     process.on("SIGINT", () => natsWrapper.client.close());
     process.on("SIGTERM", () => natsWrapper.client.close());
+
+    new TicketCreatedListener(natsWrapper.client).listen();
+    new TicketUpdatedListener(natsWrapper.client).listen();
+
     console.log("Connected to MongoDB Orders!!");
     await mongoose.connect(process.env.MONGO_URI);
   } catch (err) {
