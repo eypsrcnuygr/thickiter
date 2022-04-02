@@ -33,7 +33,12 @@ const OrderSchema = new mongoose.Schema(
     status: {
       type: String,
       required: true,
-      enum: Object.values(OrderStatus),
+      enum: [
+        OrderStatus.AwaitingPayment,
+        OrderStatus.Cancelled,
+        OrderStatus.Complete,
+        OrderStatus.Created,
+      ],
       default: OrderStatus.Created,
     },
     expiresAt: {
